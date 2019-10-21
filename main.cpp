@@ -10,17 +10,31 @@ int main(int argc, char *argv[])
     SqlServer test;
     MainWindow w;
     ServerState s;
+    bool showMainWindow = false;
     //if (test.Open())
-    if (false)
+    while (false)
     {
-        w.show();
-        w.setWindowTitle(Common::version);
+        s.show();
+        if(s.accepted)
+        {
+
+            break;
+
+        }
+        else
+        {
+
+        }
     }
     else
     {
 
-        s.show();
+
     }
+
+
+    w.show();
+    w.setWindowTitle(Common::version);
 
 
     return a.exec();

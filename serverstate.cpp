@@ -14,3 +14,10 @@ ServerState::~ServerState()
 {
     delete ui;
 }
+
+ServerState:: GetChoice()
+{
+    return this->retry;
+}
+
+

@@ -14,10 +14,12 @@ class ServerState : public QDialog
 public:
     explicit ServerState(QWidget *parent = nullptr);
     ~ServerState();
+    bool GetChoice();
 
 
 private:
     Ui::ServerState *ui;
+    bool retry;
 };
 
 #endif // SERVERSTATE_H
