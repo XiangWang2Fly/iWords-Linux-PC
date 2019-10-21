@@ -30,6 +30,7 @@ SOURCES += \
         Utility/common.cpp \
         main.cpp \
         mainwindow.cpp \
+        serverstate.cpp \
         training.cpp \
         word.cpp
 
@@ -37,11 +38,13 @@ HEADERS += \
         Database/sql.h \
         Utility/common.h \
         mainwindow.h \
+        serverstate.h \
         training.h \
         word.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        serverstate.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

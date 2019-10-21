@@ -9,10 +9,8 @@ SqlServer::SqlServer()
 
 bool SqlServer::Open()
 {
-    QStringList drivers = QSqlDatabase::drivers();
     QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
     db.setHostName("139.196.52.48");
-
     db.setDatabaseName("iWordsDB");
     db.setUserName("sa");
     db.setPassword("521021");
@@ -33,5 +31,4 @@ bool SqlServer::Open()
         qDebug("%s", qPrintable(test));
         return false;
     }
-
 }
