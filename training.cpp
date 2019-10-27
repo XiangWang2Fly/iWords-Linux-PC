@@ -31,11 +31,11 @@ void Training::Load()
             wo.NextDate = query.value(2).toDate();
             wo.KnowDate = query.value(3).toDate();
             wo.ConfirmDate = query.value(4).toDate();
-            this->words.append(wo);
+            this->Words.append(wo);
         }
     }
 
-    if (this->words.count() < 100)
+    if (this->Words.count() < 100)
     {
         // load from local
         QDomDocument doc;
@@ -91,16 +91,16 @@ void Training::Load()
 
             int index = this->FindIndex(wo.Meaning);
             if (index != -1) {
-                this->words[index].NextDate = wo.NextDate;
-                this->words[index].KnowDate = wo.KnowDate;
-                this->words[index].ConfirmDate = wo.ConfirmDate;
-                this->words[index].Modified = wo.Modified;
+                this->Words[index].NextDate = wo.NextDate;
+                this->Words[index].KnowDate = wo.KnowDate;
+                this->Words[index].ConfirmDate = wo.ConfirmDate;
+                this->Words[index].Modified = wo.Modified;
             }
             else {
-                this->words.append(wo);
+                this->Words.append(wo);
             }
 
-            if (this->words.count() >= 100)
+            if (this->Words.count() >= 100)
             {
                 break;
             }
@@ -114,10 +114,10 @@ void Training::Load()
 
 Word* Training::GetNext() {
     Word* wo;
-    int maxTry = this->words.count();
+    int maxTry = this->Words.count();
     do {
-        int i = Common::GenerateRandomInteger(0, this->words.count());
-        wo = &this->words[i];
+        int i = Common::GenerateRandomInteger(0, this->Words.count());
+        wo = &this->Words[i];
         if (wo->NextDate > QDateTime().currentDateTime().date()) {
             break;
         }
@@ -135,8 +135,8 @@ QDate Training::ResetDate(){
 int Training::FindIndex(QString meaning) {
     int result = -1;
 
-    for (int i = 0; i < this->words.count(); i++) {
-        if (this->words[i].Meaning == meaning)
+    for (int i = 0; i < this->Words.count(); i++) {
+        if (this->Words[i].Meaning == meaning)
         {
             result = i;
             break;
@@ -157,42 +157,42 @@ void Training::Save()
         doc.setContent(&file);
         file.close();
         QDomElement root = doc.documentElement();
-        for (int i = 0; i < this->words.count(); i++) {
-            if (this->words[i].Modified){
+        for (int i = 0; i < this->Words.count(); i++) {
+            if (this->Words[i].Modified){
                 // update to server
                 if (serverReady) {
                     QString command = "select * from Words where meaning = '";
-                    command.append(this->words[i].Meaning);
+                    command.append(this->Words[i].Meaning);
                     command.append("'");
                     QSqlQuery query(command);
                     if (query.next()) {
                         Word onServer;
                         onServer.NextDate = query.value(2).toDate();
-                        if (this->words[i].NextDate != onServer.NextDate) {
+                        if (this->Words[i].NextDate != onServer.NextDate) {
                             QString command = "update Words set ";
                             command.append("next_date='");
-                            command.append(this->words[i].NextDate.toString("yyyy-M-d"));
+                            command.append(this->Words[i].NextDate.toString("yyyy-M-d"));
                             command.append("',know_date='");
-                            command.append(this->words[i].KnowDate.toString("yyyy-M-d"));
+                            command.append(this->Words[i].KnowDate.toString("yyyy-M-d"));
                             command.append("',confirm_date='");
-                            command.append(this->words[i].ConfirmDate.toString("yyyy-M-d"));
+                            command.append(this->Words[i].ConfirmDate.toString("yyyy-M-d"));
                             command.append("'where meaning='");
-                            command.append(this->words[i].Meaning);
+                            command.append(this->Words[i].Meaning);
                             command.append("'");
                             QSqlQuery query(command);
                         }
                     }
                     else {
                         QString command = "insert into Words values ('";
-                        command.append(this->words[i].Meaning);
+                        command.append(this->Words[i].Meaning);
                         command.append("', '");
-                        command.append(this->words[i].English);
+                        command.append(this->Words[i].English);
                         command.append("', '");
-                        command.append(this->words[i].NextDate.toString("yyyy-M-d"));
+                        command.append(this->Words[i].NextDate.toString("yyyy-M-d"));
                         command.append("', '");
-                        command.append(this->words[i].KnowDate.toString("yyyy-M-d"));
+                        command.append(this->Words[i].KnowDate.toString("yyyy-M-d"));
                         command.append("', '");
-                        command.append(this->words[i].ConfirmDate.toString("yyyy-M-d"));
+                        command.append(this->Words[i].ConfirmDate.toString("yyyy-M-d"));
                         command.append("')");
                         QSqlQuery query(command);
                     }
@@ -201,7 +201,7 @@ void Training::Save()
                     QDomNode node = root.firstChild();
                     while (!node.isNull()) {
                         Word wo(node.toElement());
-                        if (wo.Meaning == this->words[i].Meaning) {
+                        if (wo.Meaning == this->Words[i].Meaning) {
                             root.removeChild(node);
                             break;
                         }
@@ -216,11 +216,11 @@ void Training::Save()
                     QDomNode node = root.firstChild();
                     while (!node.isNull()) {
                         Word wo(node.toElement());
-                        if (wo.Meaning == this->words[i].Meaning) {
-                            node.toElement().setAttribute("english", this->words[i].English);
-                            node.toElement().setAttribute("next", this->words[i].NextDate.toString());
-                            node.toElement().setAttribute("know", this->words[i].KnowDate.toString());
-                            node.toElement().setAttribute("confirm", this->words[i].ConfirmDate.toString());
+                        if (wo.Meaning == this->Words[i].Meaning) {
+                            node.toElement().setAttribute("english", this->Words[i].English);
+                            node.toElement().setAttribute("next", this->Words[i].NextDate.toString());
+                            node.toElement().setAttribute("know", this->Words[i].KnowDate.toString());
+                            node.toElement().setAttribute("confirm", this->Words[i].ConfirmDate.toString());
                             find = true;
                             break;
                         }
@@ -229,11 +229,11 @@ void Training::Save()
                     // creat new
                     if (!find) {
                         QDomElement element =  doc.createElement("word");
-                        element.setAttribute("meaning", this->words[i].Meaning);
-                        element.setAttribute("english", this->words[i].English);
-                        element.setAttribute("next", this->words[i].NextDate.toString());
-                        element.setAttribute("know", this->words[i].KnowDate.toString());
-                        element.setAttribute("confirm", this->words[i].ConfirmDate.toString());
+                        element.setAttribute("meaning", this->Words[i].Meaning);
+                        element.setAttribute("english", this->Words[i].English);
+                        element.setAttribute("next", this->Words[i].NextDate.toString());
+                        element.setAttribute("know", this->Words[i].KnowDate.toString());
+                        element.setAttribute("confirm", this->Words[i].ConfirmDate.toString());
                         root.appendChild(element);
                     }
                 } // if (serverReady)
@@ -249,14 +249,10 @@ void Training::Save()
 
 void Training::Calc() {
     this->NumConfirmed = 0;
-    foreach (Word wo, this->words){
+    foreach (Word wo, this->Words){
         if (wo.ConfirmDate > this->ResetDate())
         {
             this->NumConfirmed++;
         }
     }
-}
-
-int Training::GetNumTotal(){
-    return this->words.count();
 }

@@ -16,11 +16,9 @@ public:
     void Calc();
     bool Modified;
     int NumConfirmed;
-    int GetNumTotal();
-
-private:
-    QList<Word> words;
     int FindIndex(QString meaning);
+    QList<Word> Words;
+private:
 
 };
 

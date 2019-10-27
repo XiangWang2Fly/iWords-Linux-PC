@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDateTime>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -117,8 +118,25 @@ void MainWindow::on_pushButtonNext_clicked()
 
 void MainWindow::on_pushButtonAddNew_clicked()
 {
-int test;
-test++;
+    if (!this->ui->lineEditMeaning->text().isEmpty() && !this->ui->lineEditEnglish->text().isEmpty()) {
+        Word wo;
+        wo.Meaning = this->ui->lineEditMeaning->text();
+        wo.English = this->ui->lineEditEnglish->text();
+        if (this->training.FindIndex(wo.Meaning) != -1)
+        {
+            QMessageBox::information(NULL, "Info", "Meaning exists", QMessageBox::Ok, QMessageBox::No);
+        }
+        else
+        {
+            wo.Modified = true;
+            this->training.Words.append(wo);
+            this->ui->labelTotal->setText(QString::number(this->training.Words.count(), 10));
+            this->training.Modified = true;
+        }
+
+        this->ui->lineEditMeaning->clear();
+        this->ui->lineEditEnglish->clear();
+    }
 }
 
 void MainWindow::Init()
@@ -129,7 +147,7 @@ void MainWindow::Init()
     this->training.Load();
     this->training.Calc();
     this->ShowNextWord();
-    int numTotal = this->training.GetNumTotal();
+    int numTotal = this->training.Words.count();
     this->ui->labelTotal->setText(QString::number(numTotal, 10));
     this->ui->labelConfirm->setText(QString::number(this->training.NumConfirmed, 10));
     if (numTotal > 0){
