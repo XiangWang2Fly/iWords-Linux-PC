@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "training.h"
+#include "word.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,6 +16,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void Init();
 
 private slots:
     void on_pushButtonVague_clicked();
@@ -26,10 +29,26 @@ private slots:
 
     void on_pushButtonRight_clicked();
 
+    void on_pushButtonNext_clicked();
+
     void on_pushButtonAddNew_clicked();
 
 private:
+    enum RememberStatus
+    {
+        Invalid,
+        Unknown,
+        Vague,
+        Known
+    };
+
     Ui::MainWindow *ui;
+    Training training;
+    Word* word;
+    RememberStatus preSelect;
+    void ShowNextWord();
 };
+
+
 
 #endif // MAINWINDOW_H

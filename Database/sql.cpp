@@ -1,5 +1,4 @@
 #include "sql.h"
-#include <QSqlDatabase>
 #include <QtSql>
 
 SqlServer::SqlServer()
@@ -7,28 +6,36 @@ SqlServer::SqlServer()
 
 }
 
-bool SqlServer::Open()
-{
-    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
-    db.setHostName("139.196.52.48");
-    db.setDatabaseName("iWordsDB");
-    db.setUserName("sa");
-    db.setPassword("521021");
 
-    if (!db.isValid())
+
+bool SqlServer::Init()
+{
+    this->db = QSqlDatabase::addDatabase("QODBC");
+    this->db.setHostName("139.196.52.48");
+    this->db.setDatabaseName("iWordsDB");
+    this->db.setUserName("sa");
+    this->db.setPassword("521021");
+
+    if (!this->db.isValid())
     {
-        qDebug("%s", qPrintable(db.lastError().text()));
+        qDebug("%s", qPrintable(this->db.lastError().text()));
         return true;
     }
+    else
+    {
+        return false;
+    }
+}
 
-    if (db.open())
+bool SqlServer::Open()
+{
+    if (this->db.open())
     {
         return true;
     }
     else
     {
-        QString test = db.lastError().text();
-        qDebug("%s", qPrintable(test));
         return false;
     }
 }
+

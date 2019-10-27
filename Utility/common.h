@@ -8,6 +8,9 @@ class Common
 public:
     Common();
     static QString version;
+    static int GenerateRandomInteger(int min, int max);
 };
+
+
 
 #endif // COMMON_H

@@ -7,17 +7,12 @@ ServerState::ServerState(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->labelMessage->setText("Server is not ready, retry?");
-    ui->labelMessage->set
+    ui->labelMessage->adjustSize();
 }
 
 ServerState::~ServerState()
 {
     delete ui;
-}
-
-ServerState:: GetChoice()
-{
-    return this->retry;
 }
 
 

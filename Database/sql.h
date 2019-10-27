@@ -1,11 +1,20 @@
 #ifndef SQL_H
 #define SQL_H
-
+#include <QSqlDatabase>
 
 class SqlServer
 {
-public:
+private:
     SqlServer();
+    QSqlDatabase db;
+
+public:
+    static SqlServer& GetInstance()
+    {
+        static SqlServer singleton;
+        return singleton;
+    }
+    bool Init();
     bool Open();
 };
 

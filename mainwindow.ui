@@ -10,6 +10,11 @@
     <height>618</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>13</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -38,13 +43,13 @@
     <property name="checked">
      <bool>false</bool>
     </property>
-    <widget class="QGroupBox" name="groupBoxChinese">
+    <widget class="QGroupBox" name="groupBoxMeaning">
      <property name="geometry">
       <rect>
        <x>119</x>
-       <y>50</y>
+       <y>30</y>
        <width>621</width>
-       <height>80</height>
+       <height>121</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -54,16 +59,34 @@
       <string notr="true"/>
      </property>
      <property name="title">
-      <string>Chinese</string>
+      <string>Meaning</string>
      </property>
+     <widget class="QLabel" name="labelMeaning">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>591</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Sample</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QGroupBox" name="groupBoxEnglish">
      <property name="geometry">
       <rect>
        <x>119</x>
-       <y>240</y>
+       <y>220</y>
        <width>621</width>
-       <height>80</height>
+       <height>121</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -72,6 +95,24 @@
      <property name="title">
       <string>English</string>
      </property>
+     <widget class="QLabel" name="labelEnglish">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>591</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Sample</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QPushButton" name="pushButtonUnknown">
      <property name="geometry">
@@ -81,6 +122,11 @@
        <width>106</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(211, 215, 207);
@@ -99,6 +145,11 @@ color: rgb(239, 41, 41);</string>
        <height>29</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(211, 215, 207);
 color: rgb(193, 125, 17);</string>
@@ -115,6 +166,11 @@ color: rgb(193, 125, 17);</string>
        <width>106</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(211, 215, 207);
@@ -150,12 +206,36 @@ color: rgb(239, 41, 41);</string>
        <height>29</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(211, 215, 207);
 color: rgb(115, 210, 22);</string>
      </property>
      <property name="text">
       <string>Right</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonNext">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>350</y>
+       <width>106</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(211, 215, 207);</string>
+     </property>
+     <property name="text">
+      <string>Next</string>
+     </property>
+     <property name="default">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -246,7 +326,7 @@ color: rgb(115, 210, 22);</string>
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="labelChinese_0">
+   <widget class="QLabel" name="labelMeaning_1">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -256,10 +336,10 @@ color: rgb(115, 210, 22);</string>
      </rect>
     </property>
     <property name="text">
-     <string>Chinese</string>
+     <string>Meaning</string>
     </property>
    </widget>
-   <widget class="QLabel" name="labelEnglish_0">
+   <widget class="QLabel" name="labelEnglish_1">
     <property name="geometry">
      <rect>
       <x>480</x>
@@ -272,7 +352,7 @@ color: rgb(115, 210, 22);</string>
      <string>English</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditChinese">
+   <widget class="QLineEdit" name="lineEditMeaning">
     <property name="geometry">
      <rect>
       <x>100</x>
