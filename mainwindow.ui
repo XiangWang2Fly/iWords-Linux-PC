@@ -239,93 +239,6 @@ color: rgb(115, 210, 22);</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>40</y>
-      <width>160</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="labelConfirm_0">
-       <property name="text">
-        <string>Confirm:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labelConfirm">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>40</y>
-      <width>135</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="labelTotal_0">
-       <property name="text">
-        <string>Total:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labelTotal">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>40</y>
-      <width>202</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="labelRate_0">
-       <property name="text">
-        <string>Confirm Rate:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labelRate">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="labelMeaning_1">
     <property name="geometry">
      <rect>
@@ -392,6 +305,93 @@ color: rgb(115, 210, 22);</string>
     </property>
     <property name="text">
      <string>Add New</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelConfirm">
+    <property name="geometry">
+     <rect>
+      <x>369</x>
+      <y>41</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>1000</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelConfirm_0">
+    <property name="geometry">
+     <rect>
+      <x>271</x>
+      <y>41</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Confirmed:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelRate_0">
+    <property name="geometry">
+     <rect>
+      <x>521</x>
+      <y>41</y>
+      <width>117</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Confirm Rate: </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelRate">
+    <property name="geometry">
+     <rect>
+      <x>645</x>
+      <y>41</y>
+      <width>46</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>100%</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelTotal_0">
+    <property name="geometry">
+     <rect>
+      <x>61</x>
+      <y>41</y>
+      <width>46</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Total:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelTotal">
+    <property name="geometry">
+     <rect>
+      <x>114</x>
+      <y>41</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>1000</string>
     </property>
    </widget>
   </widget>
