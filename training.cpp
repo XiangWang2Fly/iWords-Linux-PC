@@ -59,9 +59,9 @@ void Training::Load()
         {
             Word wo(node.toElement());
             if (serverReady) {
-                QString command = "select * from Words where meaning = '";
+                QString command = "select top 100 * from Words where meaning = '";
                 command.append(wo.Meaning);
-                command.append("'");
+                command.append("' order by next_date");
                 QSqlQuery query(command);
                 if (query.next())
                 {

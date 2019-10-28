@@ -96,6 +96,7 @@ void MainWindow::on_pushButtonRight_clicked()
 
                 word->Modified = true;
                 this->training.Modified = true;
+                this->UpdateScoreBoard();
                 break;
             default:
                 break;
@@ -122,6 +123,7 @@ void MainWindow::on_pushButtonAddNew_clicked()
         Word wo;
         wo.Meaning = this->ui->lineEditMeaning->text();
         wo.English = this->ui->lineEditEnglish->text();
+        wo.NextDate = QDateTime::currentDateTime().addDays(6).date();
         if (this->training.FindIndex(wo.Meaning) != -1)
         {
             QMessageBox::information(NULL, "Info", "Meaning exists", QMessageBox::Ok, QMessageBox::No);
@@ -132,6 +134,7 @@ void MainWindow::on_pushButtonAddNew_clicked()
             this->training.Words.append(wo);
             this->ui->labelTotal->setText(QString::number(this->training.Words.count(), 10));
             this->training.Modified = true;
+            this->UpdateScoreBoard();
         }
 
         this->ui->lineEditMeaning->clear();
@@ -147,12 +150,7 @@ void MainWindow::Init()
     this->training.Load();
     this->training.Calc();
     this->ShowNextWord();
-    int numTotal = this->training.Words.count();
-    this->ui->labelTotal->setText(QString::number(numTotal, 10));
-    this->ui->labelConfirm->setText(QString::number(this->training.NumConfirmed, 10));
-    if (numTotal > 0){
-        this->ui->labelRate->setText(QString("%1%").arg(static_cast<float>(this->training.NumConfirmed)/numTotal*100));
-    }
+    this->UpdateScoreBoard();
 }
 
 void MainWindow::ShowNextWord()
@@ -160,6 +158,16 @@ void MainWindow::ShowNextWord()
     this->word = this->training.GetNext();
     this->ui->labelMeaning->setText(this->word->Meaning);
     this->ui->labelEnglish->setText("");
+}
+
+void MainWindow::UpdateScoreBoard() {
+    int numTotal = this->training.Words.count();
+    this->ui->labelTotal->setText(QString::number(numTotal, 10));
+    this->ui->labelConfirm->setText(QString::number(this->training.NumConfirmed, 10));
+    float rate = static_cast<float>(this->training.NumConfirmed)/numTotal*100;
+    if (numTotal > 0){
+        this->ui->labelRate->setText(QString("%1 %").arg(QString::number(rate, 'f', 1)));
+    }
 }
 
 

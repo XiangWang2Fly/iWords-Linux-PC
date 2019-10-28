@@ -47,6 +47,7 @@ private:
     Word* word;
     RememberStatus preSelect;
     void ShowNextWord();
+    void UpdateScoreBoard();
 };
 
 
