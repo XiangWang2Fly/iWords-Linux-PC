@@ -35,7 +35,13 @@ bool SqlServer::Open()
     }
     else
     {
+        qDebug("%s", qPrintable(this->db.lastError().text()));
         return false;
     }
+}
+
+void SqlServer::Close()
+{
+    this->db.close();
 }
 

@@ -16,6 +16,7 @@ public:
     }
     bool Init();
     bool Open();
+    void Close();
 };
 
 #endif // SQL_H

@@ -244,6 +244,10 @@ void Training::Save()
         QTextStream out(&file);
         doc.save(out, 4);
         file.close();
+        if (serverReady)
+        {
+            SqlServer::GetInstance().Close();
+        }
     }
 }
 
