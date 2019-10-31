@@ -161,10 +161,11 @@ void Training::Save()
             if (this->Words[i].Modified){
                 // update to server
                 if (serverReady) {
-                    QString command = "select * from Words where meaning = '";
-                    command.append(this->Words[i].Meaning);
-                    command.append("'");
-                    QSqlQuery query(command);
+                    QString search = "select * from Words where meaning = '";
+                    search.append(this->Words[i].Meaning);
+                    search.append("'");
+                    int count = 0;
+                    QSqlQuery query(search);
                     if (query.next()) {
                         Word onServer;
                         onServer.NextDate = query.value(2).toDate();
@@ -179,36 +180,56 @@ void Training::Save()
                             command.append("'where meaning='");
                             command.append(this->Words[i].Meaning);
                             command.append("'");
-                            QSqlQuery query(command);
+                            query.exec(command);
                         }
                     }
                     else {
-                        QString command = "insert into Words values ('";
-                        command.append(this->Words[i].Meaning);
-                        command.append("', '");
-                        command.append(this->Words[i].English);
-                        command.append("', '");
-                        command.append(this->Words[i].NextDate.toString("yyyy-M-d"));
-                        command.append("', '");
-                        command.append(this->Words[i].KnowDate.toString("yyyy-M-d"));
-                        command.append("', '");
-                        command.append(this->Words[i].ConfirmDate.toString("yyyy-M-d"));
-                        command.append("')");
-                        QSqlQuery query(command);
+                        do{
+                            QString insert = "insert into Words values ('";
+                            insert.append(this->Words[i].Meaning);
+                            insert.append("', '");
+                            insert.append(this->Words[i].English);
+                            insert.append("', '");
+                            insert.append(this->Words[i].NextDate.toString("yyyy-M-d"));
+                            insert.append("', '");
+                            insert.append(this->Words[i].KnowDate.toString("yyyy-M-d"));
+                            insert.append("', '");
+                            insert.append(this->Words[i].ConfirmDate.toString("yyyy-M-d"));
+                            insert.append("')");
+                            query.exec(insert);
+
+                            if (query.exec(search))
+                            {
+                                if (query.next())
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+
+                        }while(count < 2);
                     }
 
-                    // delete local
-                    QDomNode node = root.firstChild();
-                    while (!node.isNull()) {
-                        Word wo(node.toElement());
-                        if (wo.Meaning == this->Words[i].Meaning) {
-                            root.removeChild(node);
-                            break;
+                    // make sure server has it
+                    if (count < 2){
+                        // delete local
+                        QDomNode node = root.firstChild();
+                        while (!node.isNull()) {
+                            Word wo(node.toElement());
+                            if (wo.Meaning == this->Words[i].Meaning) {
+                                root.removeChild(node);
+                                break;
+                            }
+                            else {
+                                node = node.nextSibling();
+                            }
                         }
-                        else {
-                            node = node.nextSibling();
-                        }
+
                     }
+
                 }
                 else {
                     // update local

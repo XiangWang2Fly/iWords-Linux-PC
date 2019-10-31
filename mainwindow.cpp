@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDateTime>
 #include <QMessageBox>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -111,9 +112,8 @@ void MainWindow::on_pushButtonNext_clicked()
 {
     if (!this->ui->labelEnglish->text().isEmpty())
     {
-        this->ShowNextWord();
-        this->ui->pushButtonWrong->hide();
-        this->ui->pushButtonRight->hide();
+        this->on_pushButtonRight_clicked();
+        this->ui->pushButtonNext->hide();
     }
 }
 
@@ -147,6 +147,11 @@ void MainWindow::Init()
     this->ui->pushButtonWrong->hide();
     this->ui->pushButtonNext->hide();
     this->ui->pushButtonRight->hide();
+
+    // an information to user
+    QMessageBox *box = new QMessageBox(QMessageBox::Information,"Info", "Start loading Database");
+    QTimer::singleShot(1200, box, SLOT(close()));
+    box->exec();
     this->training.Load();
     this->training.Calc();
     this->ShowNextWord();
