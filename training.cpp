@@ -118,7 +118,7 @@ Word* Training::GetNext() {
     do {
         int i = Common::GenerateRandomInteger(0, this->Words.count());
         wo = &this->Words[i];
-        if (wo->NextDate > QDateTime().currentDateTime().date()) {
+        if (wo->NextDate <= QDateTime::currentDateTime().date()) {
             break;
         }
 
