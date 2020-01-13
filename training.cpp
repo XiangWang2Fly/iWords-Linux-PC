@@ -31,7 +31,14 @@ void Training::Load()
             wo.NextDate = query.value(2).toDate();
             wo.KnowDate = query.value(3).toDate();
             wo.ConfirmDate = query.value(4).toDate();
-            this->Words.append(wo);
+            if (!wo.Meaning.isEmpty())
+            {
+                this->Words.append(wo);
+            }
+            else
+            {
+                wo.Meaning = wo.Meaning;
+            }
         }
     }
 
@@ -90,13 +97,15 @@ void Training::Load()
             }
 
             int index = this->FindIndex(wo.Meaning);
-            if (index != -1) {
+            if (index != -1)
+            {
                 this->Words[index].NextDate = wo.NextDate;
                 this->Words[index].KnowDate = wo.KnowDate;
                 this->Words[index].ConfirmDate = wo.ConfirmDate;
                 this->Words[index].Modified = wo.Modified;
             }
-            else {
+            else
+            {
                 this->Words.append(wo);
             }
 
@@ -118,7 +127,9 @@ Word* Training::GetNext() {
     do {
         int i = Common::GenerateRandomInteger(0, this->Words.count());
         wo = &this->Words[i];
-        if (wo->NextDate <= QDateTime::currentDateTime().date()) {
+        if ((!wo->Meaning.isEmpty())
+            && (wo->NextDate <= QDateTime::currentDateTime().date()))
+        {
             break;
         }
 
