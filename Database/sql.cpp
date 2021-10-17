@@ -12,7 +12,7 @@ bool SqlServer::Init()
 {
     this->db = QSqlDatabase::addDatabase("QODBC");
     this->db.setHostName("139.196.52.48");
-    this->db.setDatabaseName("iWordsDB");
+    this->db.setDatabaseName("SQLServer");
     this->db.setUserName("sa");
     this->db.setPassword("521021");
 
