@@ -22,7 +22,9 @@ void Training::Load()
     if (SqlServer::GetInstance().Open())
     {
         serverReady = true;
-        QSqlQuery query("select * from Words where DATEDIFF(day, next_date, GETDATE()) >= 0");
+        QSqlQuery query;
+        query.exec("use iWordsDB");
+        query.exec("select * from Words where DATEDIFF(day, next_date, GETDATE()) >= 0");
         while(query.next())
         {
             Word wo;
@@ -176,7 +178,9 @@ void Training::Save()
                     search.append(this->Words[i].Meaning);
                     search.append("'");
                     int count = 0;
-                    QSqlQuery query(search);
+                    QSqlQuery query;
+                    query.exec("use iWordsDB");
+                    query.exec(search);
                     if (query.next()) {
                         Word onServer;
                         onServer.NextDate = query.value(2).toDate();
@@ -194,31 +198,30 @@ void Training::Save()
                             query.exec(command);
                         }
                     }
-                    else {
-                        do{
-                            QString insert = "insert into Words values ('";
-                            insert.append(this->Words[i].Meaning);
-                            insert.append("', '");
-                            insert.append(this->Words[i].English);
-                            insert.append("', '");
-                            insert.append(this->Words[i].NextDate.toString("yyyy-M-d"));
-                            insert.append("', '");
-                            insert.append(this->Words[i].KnowDate.toString("yyyy-M-d"));
-                            insert.append("', '");
-                            insert.append(this->Words[i].ConfirmDate.toString("yyyy-M-d"));
-                            insert.append("')");
+                    else
+                    {
+                        QString insert = "insert into Words values ('";
+                        insert.append(this->Words[i].Meaning);
+                        insert.append("', '");
+                        insert.append(this->Words[i].English);
+                        insert.append("', '");
+                        insert.append(this->Words[i].NextDate.toString("yyyy-M-d"));
+                        insert.append("', '");
+                        insert.append(this->Words[i].KnowDate.toString("yyyy-M-d"));
+                        insert.append("', '");
+                        insert.append(this->Words[i].ConfirmDate.toString("yyyy-M-d"));
+                        insert.append("')");
+                        do
+                        {
                             query.exec(insert);
-
-                            if (query.exec(search))
+                            query.exec(search);
+                            if (query.next())
                             {
-                                if (query.next())
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
+                                break;
+                            }
+                            else
+                            {
+                                count++;
                             }
 
                         }while(count < 2);
